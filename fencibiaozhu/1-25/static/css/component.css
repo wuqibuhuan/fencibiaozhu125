@@ -1,0 +1,430 @@
+/* General styles for all menus */
+.cbp-spmenu {
+	/* background: #47a3da; */
+	background: #303030;
+	position: fixed;
+}
+
+.cbp-spmenu h3 {
+	color: #afdefa;
+	font-size: 1.9em;
+	padding: 20px;
+	margin: 0;
+	font-weight: 300;
+	/* background: #0d77b6; */
+}
+
+.cbp-spmenu a {
+	display: block;
+	color: #fff;
+	font-size: 1.1em;
+	font-weight: 300;
+}
+
+.cbp-spmenu a:hover {
+	background: #258ecd;
+}
+
+.cbp-spmenu a:active {
+	background: #afdefa;
+	color: #47a3da;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-vertical {
+	width: 270px;
+	height: 590px;
+	top: 104px;
+	background: url(../img/wenben.png) no-repeat;
+	z-index: 1000;
+}
+
+.cbp-spmenu-vertical a {
+	border-bottom: 1px solid #258ecd;
+	padding: 1em;
+}
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 150px;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.cbp-spmenu-horizontal h3 {
+	height: 100%;
+	width: 20%;
+	float: left;
+}
+
+.cbp-spmenu-horizontal a {
+	float: left;
+	width: 20%;
+	padding: 0.8em;
+	border-left: 1px solid #258ecd;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left {
+	left: -300px;
+}
+
+.cbp-spmenu-right {
+	right: -240px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -150px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 0px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em) {
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 110px;
+	}
+
+	.cbp-spmenu-top {
+		top: -110px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+
+
+#showLeftPush {
+	width: 33px;
+	height: 227px;
+	border: 0;
+	color: aliceblue;
+	background: url(../img/wenbendianji.png) no-repeat;
+}
+
+#showLeft {
+	width: 33px;
+	height: 227px;
+	border: 0;
+	color: aliceblue;
+	position: absolute;
+	top: 250px;
+	background: url(../img/wenbendianji.png) no-repeat;
+}
+
+body {
+	margin: -233px auto;
+}
+
+.pp {
+	width: 94%;
+	height: 570px;
+	margin-left: 10px;
+	margin-top: 13px;
+	background: #292929;
+	/* background: linear-gradient(#3be0f4, #09aade); */
+	overflow-y: auto;
+	color: aliceblue;
+}
+
+.pp p {
+	font-size: 14px;
+	padding: 0px 10px;
+}
+
+.pp h4 {
+	padding: 0px 10px;
+}
+
+.w {
+	width: 1230px;
+	/* height: 85%; */
+	height: 800px;
+	/* background: #292929; */
+	margin: 35px auto;
+	position: relative;
+	/* background: url(../img/qp1111.png) no-repeat; */
+	background-size: 100% auto;
+		box-shadow: 0px 0px 30px #3BE0EF;
+		background-color: rgba(125, 125, 125, 0.2);
+}
+
+
+.ech {
+	position: absolute;
+	top: 23px;
+	left: 32px;
+	bottom: 0;
+	right: 0;
+	width: 96%;
+	/* height: 85%; */
+	/* max-height: 700px; */
+	box-shadow: 0px 0px 30px#3be0f4;
+}
+
+.modal {
+	/* width: 655px; */
+	/* height: 88%; */
+	/* position: absolute;
+    left: 31%;
+	top: 13%; */
+	width: 655px;
+	height: 450px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+
+	margin-top: -206px;
+	margin-left: -327px;
+	/* display: block; */
+	/* background: rgba(128, 128, 128, 0.8); */
+}
+.modalls {
+	/* width: 655px; */
+	/* height: 88%; */
+	/* position: absolute;
+    left: 31%;
+	top: 13%; */
+	width: 655px;
+	height: 450px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	cursor: pointer;
+	margin-top: -206px;
+	margin-left: -327px;
+	/* display: block; */
+	background: rgba(128, 128, 128, 0.5);
+		box-shadow: 0px 0px 30px#3be0f4;
+		 /* background-image: url(../img/motai.png);
+		   background-size: 100% auto;
+		   background-repeat: no-repeat;
+		   position: relative; */
+	
+}
+.modalls button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	position: absolute;
+	top: 11px;
+	right: 14px;
+	background: url(../img/dt-x.png) no-repeat;
+	cursor: pointer;
+}
+.modallss {
+	/* width: 655px; */
+	/* height: 88%; */
+	/* position: absolute;
+    left: 31%;
+	top: 13%; */
+	width: 655px;
+	height: 450px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	cursor: pointer;
+	margin-top: -206px;
+	margin-left: -327px;
+	/* display: block; */
+	background: rgba(128, 128, 128, 0.5);
+	box-shadow: 0px 0px 30px#3be0f4;
+	/* background-image: url(../img/motai.png);
+		   background-size: 100% auto;
+		   background-repeat: no-repeat;
+		   position: relative; */
+
+}
+
+.modallss button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	position: absolute;
+	top: 11px;
+	right: 14px;
+	background: url(../img/dt-x.png) no-repeat;
+	cursor: pointer;
+}
+
+
+
+.modal button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	position: absolute;
+	top: 29px;
+	right: -3px;
+	background: url(../img/dt-x.png) no-repeat;
+	cursor: pointer;
+}
+
+.modal-1 {
+	width: 46%;
+	height: 88%;
+	position: absolute;
+	left: 29%;
+	top: 13%;
+	display: none;
+	/* background: url(../img/motai.png) no-repeat;
+    background-size: 100% auto;*/
+}
+
+.modal-1 button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	position: absolute;
+	top: 27px;
+	right: -15px;
+	background: url(../img/dt-x.png) no-repeat;
+}
+
+.modal-2 {
+	width: 46%;
+	height: 88%;
+	position: absolute;
+	left: 29%;
+	top: 13%;
+	display: none;
+	/* background: url(../img/motai.png) no-repeat;
+    background-size: 100% auto;*/
+}
+
+.modal-2 button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	position: absolute;
+	top: 27px;
+	right: -15px;
+	cursor: pointer;
+	background: url(../img/dt-x.png) no-repeat;
+}
+
+/* .main {
+   text-align: center;
+   margin: 0 auto;
+   position: relative;
+} */
+.wujiang_pic_size {
+	margin-top: 10px;
+}
+
+/* #yemie {
+	height: 30px;
+	width: 100%;
+
+}
+
+#yemei img {
+	padding-top: 30px;
+} */
+
+#dibu {
+	height: 10px;
+	width: 100%;
+	margin: 10px auto;
+	text-align: center;
+}
+
+#dibu p {
+	color: aliceblue;
+}
+
+.form-control {
+	/* float: right; */
+	/* height: 34px; */
+	padding: 6px 12px;
+	margin-right: 10px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.btn {
+	/* float: right; */
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}

@@ -1,0 +1,89 @@
+::-webkit-scrollbar-track-piece {
+  /* //婊氬姩鏉″嚬妲界殑棰滆壊锛岃繕鍙互璁剧疆杈规灞炴�� */
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  /* //婊氬姩鏉＄殑瀹藉害 */
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* //婊氬姩鏉＄殑璁剧疆 */
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 214, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, #0daaed));
+  background-clip: padding-box;
+  min-height: 28px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bbb;
+}
+
+header img {
+  padding-top: 34px;
+  width: 550px;
+  /* height: 66px; */
+}
+
+header h1 {
+  padding-top: 34px;
+  width: 550px;
+  color: aliceblue
+}
+
+header ul li {
+  margin-right: 3%;
+  font-size: 18px;
+  color: #fff;
+  list-style: none;
+}
+
+header ul li a {
+  /* margin-right: 30px; */
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none
+}
+
+/* header ul li a:hover {
+  color: #e0e6e9;
+} */
+
+header ul {
+  width: 46%;
+  /* padding: 50px 25px 0px 0px; */
+  margin-top: 48px;
+  margin-right: 6%;
+}
+
+.yan {
+  background: #0a91b9
+}
+
+header {
+  height: 120px;
+  width: 100%;
+
+}
+
+.cal_ul>li>a:hover {
+  color: #0a91b9;
+  text-decoration: none;
+}
+
+.clickstyle {
+  background: #4E7CA0;
+  color: red;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+header .on {
+  font-weight: bold;
+  border-bottom: 2px solid #0084FF;
+}

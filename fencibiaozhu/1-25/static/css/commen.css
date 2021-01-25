@@ -1,0 +1,324 @@
+@charset "utf-8";
+
+/* CSS Document */
+* {
+  font-size: 14px;
+  font-family: "微软雅黑";
+}
+
+/* body{ margin:0; background-color:black;} */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.container {
+  width: 1354px;
+  margin: auto;
+}
+
+
+#top1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#logo {
+  float: left;
+  padding: 5px 0;
+}
+
+#logo img {
+  float: left;
+  width: 40px;
+  margin-top: 9px;
+}
+
+#logo h3 {
+  float: left;
+  font-size: 30px;
+  color: #0033ff;
+  margin-left: 15px;
+  margin-top: 12px;
+}
+
+#state {
+  float: right;
+  margin-top: 14px;
+}
+
+#state a {
+  float: left;
+  margin: 15px 20px 0 20px;
+  font-weight: bold;
+  color: #393939;
+}
+
+#nav {
+  background-color: #0033ff;
+  margin: 15px 0 0 0;
+}
+
+#nav ul {
+  margin-bottom: 0;
+}
+
+#nav li {
+  float: left;
+  margin: 0 20px;
+}
+
+#nav a {
+  font-size: 18px;
+  color: #fff;
+  display: block;
+  padding: 11px 30px 9px 30px;
+  margin: 1px 20px 1px 20px;
+  ;
+}
+
+#nav .active a {
+  background-color: #f4f4f4;
+  color: #0093dd;
+}
+
+
+#location {
+  float: left;
+  margin-top: 10px;
+}
+
+#location p {
+  float: left;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+#location embed {
+  float: left;
+}
+
+
+#search {
+  float: right;
+}
+
+#search select {
+  float: left;
+  width: 100px;
+  margin-right: -1px;
+}
+
+#search input {
+  float: left;
+  width: 400px;
+  margin-right: -1px;
+}
+
+#search button {
+  float: left;
+}
+
+
+/* #page{color:#666; text-align:center; font-size:0px; padding-top:20px;} */
+#page a,
+#page .page_current,
+#page .page_prev,
+#page .page_next,
+#page .page_first,
+#page .page_last {
+  margin-left: 15px;
+  padding: 5px 10px;
+  border: 1px solid #bcd4e3;
+  border-radius: 3px;
+  height: 30px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+#page a:hover {
+  color: #ffffff;
+  background-color: #0093dd;
+}
+
+#page a {
+  color: #305a82;
+  text-decoration: none;
+}
+
+#page .page_current {
+  color: #ffffff;
+  background-color: #0093dd;
+}
+
+#page .page_prev {
+  color: #cdcdcd;
+}
+
+/* #page p{ display:inline; margin-left:70px; font-size:14px; color:#666;} */
+#page span {
+  font-size: 14px;
+  color: #666;
+}
+
+#page .s_input {
+  width: 30px;
+  height: 25px;
+  border-radius: 3px;
+  border: 1px solid #bcd4e3;
+}
+
+#page .btn2 {
+  width: 40px;
+  height: 25px;
+  border-radius: 3px;
+  background-color: #0093dd;
+  margin-top: -10px;
+  color: white;
+  border: none;
+}
+
+#page select {
+  width: 50px;
+  height: 25px;
+  border-radius: 3px;
+  border: 1px solid #bcd4e3;
+  margin-left: 50px;
+  margin-right: 6px;
+}
+
+#footer {
+  background-color: #393939;
+  width: 100%;
+  height: 28px;
+  margin-top: 20px;
+}
+
+#footer p {
+  font-size: 12px;
+  color: #e8f3ff;
+  text-align: center;
+  line-height: 28px;
+}
+
+@font-face {
+  font-family: '华文行楷';
+  /*字体名称*/
+  src: url(../css/华文行楷.ttf);
+  /*字体源文件*/
+}
+
+.box canvas {
+  position: absolute !important;
+  left: -13px !important;
+  top: -46px !important;
+  width: 614px;
+  height: 359px;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  padding: 0px;
+  margin: 0px;
+  border-width: 0px;
+}
+
+.btn1 {
+  width: 60px;
+  height: 30px;
+  background: #0093dd;
+  border: none;
+  margin-right: 20px;
+  color: #fff;
+
+}
+
+.buttwo {
+  width: 60px;
+  height: 30px;
+  background: #666;
+  border: none;
+  /* margin-left: 20px; */
+  color: #fff;
+}
+
+.dd {
+  width: 210px;
+  height: 100px;
+  float: left;
+  text-align: center;
+  margin: 33px auto;
+}
+
+.dd h2 {
+  font-size: 22px;
+  margin-top: 0pt;
+  text-align: center;
+}
+
+.dd p {
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+.div {
+  height: 560px;
+  width: 500px;
+  overflow: auto;
+  overflow-x: hidden;
+  margin-left: 20px;
+  margin-top: 25px;
+}
+
+.div table {
+  /*height: 560px;*/
+  width: 500px;
+  overflow: auto;
+}
+
+.dd #two {
+  color: red;
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+.dd #one {
+  color: black;
+  font-size: 24px;
+  margin-top: 15px;
+}
+
+.list .layui-table thead tr {
+  background-color: black !important;
+}
+
+.shiti .layui-table thead tr {
+  background-color: black !important;
+}

@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+<meta charset="utf-8">
+<title>分词标注</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="./static/css/main.css" />
+<link rel="stylesheet" href="./static/css/color.css">
+<link rel="stylesheet" href="./static/layui/css/layui.css">
+<link rel="stylesheet" href="./static/css/zi.css">
+<link rel="stylesheet" href="./static/css/herder.css">
+<script src="./static/fontt/iconfont.js"></script>
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.icon {
+	width: 1.3em;
+	height: 1em;
+	vertical-align: -0.15em;
+	fill: currentColor;
+	overflow: hidden;
+}
+
+/* #container {
+            width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            position: relative;
+            background-color: black;
+        } */
+.line {
+	position: absolute;
+	cursor: default;
+}
+
+.lineS {
+	font-size: 1px;
+	opacity: 0;
+	border-radius: 2.5px;
+	position: absolute;
+	transition: 1s;
+	position: absolute;
+	cursor: default;
+}
+</style>
+</head>
+
+<body style="background-color: black;">
+	<div id="particles-js">
+		<!-- <canvas width="100" height="100" style="width:100%;height:100%;"></canvas> -->
+	</div>
+	<script src="./static/js/herder.js"></script>
+	<div id="container"
+		style="width: 1240px; margin: 0 auto; position: relative;">
+		<div class="tab">
+
+
+			<div class="re">
+				<div class="spinning-top">
+					<div class="title"></div>
+					<button class="but" onclick="getSegment()" id="chu"
+						style="display: none;">智能分词</button>
+					<button class="but" id="yin" onclick="taa()">查看原文</button>
+				</div>
+				<!-- < !-- 文本区域 -->
+				<div class="tect" style="display: none;">
+					<textarea
+						style="height: 91.6%; width: 96%; padding-left: 10px; margin: 10px 10px 10px 10px; overflow: auto; color: #fff; background-color: rgba(125, 125, 125, 0.2); border: 0;"
+						id="demo" class="over">
+
+          </textarea>
+				</div>
+				<div class="tect-1" id="te" onmouseup="mytest()"></div>
+			</div>
+
+
+			<div class="contentBox">
+				<ul class="contentList">
+					<li>
+						<div class="content">
+							<div class="le">
+								<!-- 标注分类 -->
+								<div class="div"
+									style="width: 20px; height: 309px; background-color: aqua; float: right; position: absolute; top: 3px; right: -20px;">
+									<p class="classify" id="entity">实体标注</p>
+									<p class="classify" id="relation" onclick="relation_lable()">关系标注</p>
+									<p class="classify" id="property" onclick="property_lable()">属性标注</p>
+								</div>
+								<div class="sh-1">
+									<svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-leibie"></use>
+                  </svg>
+									<span>文本类别</span>
+								</div>
+								<div
+									style="width: 100%; height: 0px; border: 1px solid #26c9cf;"></div>
+								<div id="classifier"
+									style="width: 100%; height: 34px; color: #fff; padding: 17px 17px 0px 33px;">
+									<span data-name="军事类" onclick="click_ttd(this)">军事类</span> <span
+										data-name="政治类" onclick="click_ttd(this)">政治类</span> <span
+										data-name="文化类" onclick="click_ttd(this)">文化类</span> <span
+										data-name="教育类" onclick="click_ttd(this)">教育类</span> <span
+										data-name="经济类" onclick="click_ttd(this)">交通类</span> <span
+										data-name="艺术类" onclick="click_ttd(this)">艺术类</span> <span
+										data-name="体育类" onclick="click_ttd(this)">体育类</span>
+
+								</div>
+
+								<!-- 实体标注 -->
+								<div class="entity" style="width: 100%; height: 100%;">
+									<div class="her"
+										style="width: 100%; height: 18px; margin-top: 15px;">
+										<div class="sh-1" style="float: left;">
+											<svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shitijingying"></use>
+                      </svg>
+											<span>实体类型</span>
+										</div>
+										<button
+											style="float: right; cursor: pointer; margin-right: 10px; padding: 4px; background: aqua; border: 0; border-radius: 5px;"
+											onclick="add_entity()">添加词性</button>
+										<div class="clearfix" style="clear: both;"></div>
+										<div
+											style="width: 100%; height: 0px; border: 1px solid #26c9cf;"></div>
+									</div>
+									<div class="sh">
+										<div class="clearfix"></div>
+										<div class="bie">
+                      <!-- 已下是分词颜色  排版表    非必要误删 -->
+											<!-- <span class="n0 p0" id="sp1">人名</span>
+                      <span class="n1 p1" id="sp2">地名</span>
+                      <span class="n2 p2" id="sp16">机构名</span>
+                      <span class="n3 p3" id="sp17">时间</span> -->
+											<!-- <span class="n4 p4" id="sp20">方位词</span>
+                      <span class="n5 p5" id="sp6">数词</span>
+                      <span class="n6 p6" id="sp5">代词</span>
+                      <span class="n7 p7" id="sp18">处所词</span>
+                      <span class="n8 p8" id="sp19">区别词</span>
+                      <span class="n9 p9" id="sp21">状态词</span>
+                      <span class="n10 p10" id="sp11">量词</span>
+                      <span class="n11 p11" id="sp12">副词</span>
+                      <span class="n12 p12" id="sp13">语气词</span>
+                      <span class="n13 p13" id="sp14">拟声词</span>
+                      <span class="n14 p14" id="sp15">字符串</span>
+                      <span class="n15 p15" id="sp3">介词</span>
+                      <span class="n16 p16" id="sp7">连词</span>
+                      <span class="n17 p17" id="sp8">助词</span>
+                      <span class="n18 p18" id="sp9">叹词</span>
+                      <span class="n19 p19" id="sp22">标点符号</span>
+                      <span class="n20 p20" id="sp10">前缀</span>
+                      <span class="n21 p21" id="sp4">后缀</span>
+                      <span class="n22 p22" id="sp23">国家</span> -->
+										</div>
+									</div>
+									<!-- 新词发现 -->
+
+									<div class="sh-1">
+										<svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-xincifaxian"></use>
+                    </svg>
+										<span>新词发现</span>
+									</div>
+									<div
+										style="width: 100%; height: 0px; border: 1px solid #26c9cf;"></div>
+									<div class="sh-2">
+										<div style="height: 128px; width: 597px; margin: 0px 10px"
+											id="newci"></div>
+									</div>
+									<div class="sh-1">
+										<svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaozhu"></use>
+                    </svg>
+										<span>文本标注</span>
+									</div>
+									<div class="sh-2">
+										<div contenteditable="true"
+											style="height: 230px; width: 597px; margin: 0px 10px"
+											class="border"></div>
+									</div>
+									<div class="sh-3">
+										<button id="dao" class="import_data site-demo-active"
+											data-type="loading" style="cursor: pointer;">导入</button>
+
+									</div>
+								</div>
+
+								<!-- 关系标注 -->
+								<div class="relation" style="display: none;">
+									<div class="her"
+										style="width: 100%; height: 18px; margin-top: 15px;">
+										<div class="sh-1" style="float: left;">
+											<svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shitushiti"></use>
+                      </svg>
+											<span>关系标注</span>
+										</div>
+										<button
+											style="float: right; cursor: pointer; margin-right: 10px; padding: 4px; background: royalblue; border: 0; border-radius: 5px;"
+											onclick="add_relation()">添加关系</button>
+										<div class="clearfix" style="clear: both;"></div>
+										<div
+											style="width: 100%; height: 0px; border: 1px solid #26c9cf;"></div>
+									</div>
+									<div class="sh-guan">
+										<div class="clearfix"></div>
+										<div class="relation_stg"></div>
+									</div>
+
+									<!-- 标注结果 -->
+									<div class="sh-1">
+										<svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaozhu"></use>
+                    </svg>
+										<span>标注结果</span>
+									</div>
+									<div class="sh-2">
+										<div contenteditable="true"
+											style="height: 303px; width: 597px; margin: 0px 10px; overflow: auto;"
+											class="relation_result" id="relation_result"></div>
+									</div>
+									<div class="sh-3">
+										<button id="storageRelation"
+											style="background-color: royalblue; cursor: pointer">存储标注</button>
+
+									</div>
+								</div>
+
+								<!-- 属性标注 -->
+								<div class="property" style="display: none;">
+									<div class="her"
+										style="width: 100%; height: 18px; margin-top: 15px;">
+										<div class="sh-1" style="float: left;">
+											<svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-shitushiti"></use>
+                      </svg>
+											<span>属性标注</span>
+										</div>
+										<button
+											style="float: right; cursor: pointer; margin-right: 10px; padding: 4px; background: seagreen; border: 0; border-radius: 5px;"
+											onclick="add_property()">添加属性</button>
+										<div class="clearfix" style="clear: both;"></div>
+										<div
+											style="width: 100%; height: 0px; border: 1px solid #26c9cf;"></div>
+									</div>
+									<div class="sh-shuxing">
+										<div class="clearfix"></div>
+										<div class="property_stg"></div>
+									</div>
+
+									<!-- 标注结果 -->
+									<div class="sh-1">
+										<svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-biaozhu"></use>
+                    </svg>
+										<span>标注结果</span>
+									</div>
+									<div class="sh-2">
+										<div contenteditable="true"
+											style="height: 303px; width: 597px; margin: 0px 10px; overflow: auto;"
+											class="property_result" id="property_result"></div>
+									</div>
+									<div class="sh-3">
+										<button id="storageProperty"
+                      style="background-color: seagreen; cursor: pointer;">存储标注</button>
+									</div>
+								</div>
+							</div>
+							<!-- 这里 -->
+						</div>
+					</li>
+				</ul>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- 实体弹出框 -->
+	<div id="test" class="x-body"
+		style="display: none; position: relative;">
+		<!-- <form class="layui-form" id="lei-form" action=""> -->
+		<div class="layui-form-item center mar" style="margin-top: 10px;">
+			<label class="layui-form-label" style="width: 100px; color: #fff">添加词性:</label>
+			<div class="layui-input-block" style="margin-top: 15px;">
+				<input type="text" id="btty" style="width: 180px; color: black;"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="margin-left: 165px;">
+				<button class="layui-btn" style="background-color: #477fe9;"
+					id="btt_entity">确定</button>
+			</div>
+		</div>
+		<!-- </form> -->
+		<!-- <button class="btton" onclick="formReset()">重置</button> -->
+	</div>
+
+	<!-- 关系弹出框 -->
+	<div id="test_relation" class="x-body"
+		style="display: none; position: relative;">
+		<!-- <form class="layui-form" id="lei-form" action=""> -->
+		<div class="layui-form-item center mar" style="margin-top: 10px;">
+			<label class="layui-form-label" style="width: 100px; color: #fff">添加关系:</label>
+			<div class="layui-input-block" style="margin-top: 15px;">
+				<input type="text" id="btty_relation"
+					style="width: 180px; color: black;" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="margin-left: 165px;">
+				<button class="layui-btn" style="background-color: #477fe9;"
+					id="btt_relation">确定</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 属性弹出框 -->
+	<div id="test_property" class="x-body"
+		style="display: none; position: relative;">
+		<!-- <form class="layui-form" id="lei-form" action=""> -->
+		<div class="layui-form-item center mar" style="margin-top: 10px;">
+			<label class="layui-form-label" style="width: 100px; color: #fff">添加属性:</label>
+			<div class="layui-input-block" style="margin-top: 15px;">
+				<input type="text" id="btty_property"
+					style="width: 180px; color: black;" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block" style="margin-left: 165px;">
+				<button class="layui-btn" style="background-color: #477fe9;"
+					id="btt_property">确定</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- 导入词典弹出框 -->
+	<div id="import_data" class="x-body"
+		style="display: none; position: relative; text-align: center;">
+		<div class="dest">
+			<!-- <h3 class="gap">标注统计</h3> -->
+			<p class="gap">
+				本文已完成标注共<span
+					style="color: red; font-size: 16px; font-family: fantasy; margin: 5px;"
+					id="count"></span>处
+			</p>
+			<p class="gap">
+				数据库已完成标识共<span id="num"
+					style="color: red; font-size: 16px; font-family: fantasy; margin: 5px;"></span>篇
+				，<span id="bum"
+					style="color: red; font-size: 16px; font-family: fantasy; margin: 5px;"></span>处
+			</p>
+			<!-- 进度条 -->
+			<div class="layui-progress layui-progress-big gap"
+				lay-showpercent="true" lay-filter="demo">
+				<div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./static/js/jquery-3.0.0.min.js"></script>
+	<!-- <script src="./static/layui/layui.js"></script> -->
+	<script src="./static/layui/layui.all.js"></script>
+	<!-- <script src="./static/js/main.js"></script> -->
+	<script src="./static/js//result.js"></script>
+	<script src="./static/js/particles.min.js"></script>
+	<script src="./static/js/particles.js"></script>
+	<script src="./static/js/app.js"></script>
+	<script src="./static/js/basepath.js"></script>
+	<!-- <script src="./static/requests.js"></script> -->
+
+	<script>
+    $("herder li a").each(function () {
+      if ($(this)[0].href == String(window.location)) {
+        $(this).addClass("on").siblings().removeClass("on");
+      }
+    });
+    // init()
+    // 判断关系是否隐藏
+    // $('#dao').attr("disabled",true);
+    // 初始的实体名称对应颜色
+    var poreMap = {
+      // "n": "0",
+      // "nr": "0",
+      // "ns": "0",
+      // "nt": "0",
+      // "nz": "0",
+      // "nl": "0",
+      // "ng": "0",
+      // "nrf": "0",
+      // "nrj": "0",
+      // "nr2": "0",
+      // "nr1": "0",
+
+      // "v": "1",
+      // "vf": "1",
+      // "vn": "1",
+      // "vl": "1",
+      // "vd": "1",
+      // "vn": "1",
+      // "vx": "1",
+      // "vi": "1",
+      // "vg": "1",
+      // "vshi": "1",
+      // "vyou": "1",
+
+      // "a": "2",
+      // "ad": "2",
+      // "an": "2",
+      // "ag": "2",
+      // "al": "2",
+
+
+      // "t": "3",
+      // "tg": "3",
+      // "f": "4",
+
+      // "m": "5",
+      // "mq": "5",
+
+      // "r": "6",
+      // "rr": "6",
+      // "rz": "6",
+      // "rzt": "6",
+      // "rzs": "6",
+      // "rzv": "6",
+      // "ry": "6",
+      // "ryt": "6",
+      // "rys": "6",
+      // "ryv": "6",
+      // "rg": "6",
+
+      // "s": "7",
+
+      // "b": "8",
+      // "bl": "8",
+
+      // "z": "9",
+
+      // "q": "10",
+      // "qv": "10",
+      // "qt": "10",
+
+      // "d": "11",
+      // "dl": "11",
+      // "y": "12",
+      // "o": "13",
+      // "x": "14",
+      // "xe": "14",
+      // "xs": "14",
+      // "xm": "14",
+      // "xu": "14",
+
+      // "p": "15",
+      // "pba": "15",
+      // "pbei": "15",
+
+
+      // "c": "16",
+      // "cc": "16",
+      // "u": "17",
+      // "uzhe": "17",
+      // "ule": "17",
+      // "uguo": "17",
+      // "ude1": "17",
+      // "ude2": "17",
+      // "ude3": "17",
+      // "usuo": "17",
+      // "udeng": "17",
+      // "uyy": "17",
+      // "udh": "17",
+      // "uls": "17",
+      // "uzhi": "17",
+      // "ulian": "17",
+
+
+      // "e": "18",
+
+
+      // "w": "19",
+      // "wkz": "19",
+      // "wky": "19",
+      // "wyz": "19",
+      // "wyy": "19",
+      // "wj": "19",
+      // "ww": "19",
+      // "wt": "19",
+      // "wd": "19",
+      // "wf": "19",
+      // "wn": "19",
+      // "wm": "19",
+      // "ws": "19",
+      // "wp": "19",
+      // "wb": "19",
+      // "wh": "19",
+
+
+      // "h": "20",
+      // "国家": "21",
+      // "nsf": "22",
+      // "k": "23",
+      "nr": "0",
+      "ns": "1",
+      "nt": "2",
+      "t": "3",
+      "nwf": "64"
+
+
+    }
+    // 动态刷新的总的实体名称对应颜色 pos: class
+    var sum_map = {}
+    // key:pos:class
+    var localStorageMap = {}
+    // var localStorageKeys = ["user_pos"]
+    var user_map = {}
+    // var id_map = {}
+    //自定义词
+    var user_word = {}
+    // 关系
+    var relation = {}
+    // 属性
+    var property = {}
+    var zaa = []
+    // 文章名
+    var text;
+    getSegment()
+    // updateUserDic()
+    updateValueFromStorage("user_pos")
+    updateValueFromStorage("relation")
+    updateValueFromStorage("property")
+    getUserDic()
+    // refresh relation from storage
+    for (i in localStorageMap["relation"]) {
+      // refreshUserPOS(i)
+      addUserLabel(i, "relation", "relation_stg", addRelation)
+    }
+
+    for (i in localStorageMap["property"]) {
+      // refreshUserPOS(i)
+      addUserLabel(i, "property", "property_stg", addProperty)
+    }
+
+
+    // 点击更换分类 
+    function click_ttd(obj) {
+      var spanVal = obj.textContent;
+      console.log(spanVal)
+      layer.confirm('确定类别改为' + spanVal + '?', {
+        btn: ['确定', '取消'] //按钮
+      }, function () {
+        $.ajax({
+          type: "post",
+          url: basePath + "/List/update",
+          data: {
+            id: id,
+            classifier: spanVal
+          },
+          dataType: "json",
+          success: function (response) {
+            if (response.status == 0) {
+              layer.msg('更改成功', {
+                icon: 1
+              });
+              location.reload()
+              // getSegment()
+            }
+
+          }
+        });
+
+
+
+      }, function () {
+        layer.msg('取消成功', {
+          icon: 1
+        });
+      });
+    }
+
+
+
+
+
+    // 获取上传文本
+    // function init() {
+    //   $.ajax({
+    //     type: "post",
+    //     url: basePath + "/List/selectById",
+    //     data: {
+    //       id: id
+    //     },
+    //     dataType: "json",
+    //     success: function (res) {
+    //       $(".title").html(res.fileName)
+    //       text = res.fileName
+    //       $("#demo").html(res.content)
+    //     }
+    //   });
+    // }
+
+
+
+
+
+    function relation_lable() {
+
+      $(".entity").css("display", "none")
+      $(".relation").css("display", "block")
+      $(".property").css("display", "none")
+      // var property_display = $('.relation').css('display');
+    }
+
+    function property_lable() {
+      $(".entity").css("display", "none")
+      $(".relation").css("display", "none")
+      $(".property").css("display", "block")
+      var relation_display = $('.relation').css('display');
+      // if (relation_display == 'none') {
+    }
+
+
+    // 获取数据, 在回调函数中用 refreshUserPOS 刷新用户界面, for循环, 并且添加用户词性到storage,用addUserDic
+    function getUserDic() {
+      $.ajax({
+        type: "post",
+        url: basePath + "/List/selectById",
+        data: {
+          id: id
+        },
+        dataType: "json",
+        success: function (res) {
+
+          // refreshSegment(res.UserWord) 
+          // refreshSegment(res)
+          console.log(res.UserWord)
+          for (i in res.UserWord) {
+            // console.log(res.UserWord[i].pos)
+            if (res.UserWord[i].pos == "nwf") continue;
+            addValueToStorage(res.UserWord[i].pos)
+          }
+          for (i in user_map) {
+            refreshUserPOS(i)
+          }
+          for (i in res.UserWord) {
+            // console.log(res.UserWord[i].pos)
+            if (res.UserWord[i].pos === "nwf") continue;
+            addValueToStorage(res.UserWord[i].pos)
+          }
+
+        }
+      });
+      for (i in localStorageMap["user_pos"]) {
+        // refreshUserPOS(i)
+        addUserLabel(i, "user_pos", "bie", addUserWord)
+      }
+      mergeDic()
+
+
+    }
+
+    // 获取选中的文字
+    function mytest(e) {
+
+      // console.log(window.getSelection);
+      var word = window.getSelection ? window.getSelection() : document.selection.createRange().text;
+      // if (word.is(!'.nundefined')) {
+      //   console.log(111)
+      // }
+      // var word = txt.replace(/\s*/g, '');
+      if (word == "") { //当选中内容为空时，阻止事件发生
+        window.event ? window.event.cancelBubble = true : e.stopPropagation();
+      } else {
+        var relation_display = $('.relation').css('display');
+        var property_display = $('.property').css('display')
+        // if () {
+        // 判断是关系还是属性  传参
+        if (relation_display == 'none') {
+          autoMachine(2, null, word + '</br>', null, 'p', addEntity_property, removeEntity_property,
+            addRelationToResult_property,
+            changeRelationToResult_property, addPropertyToResult_property)
+
+        }
+        if (property_display == 'none') {
+          autoMachine(2, null, word + '</br>', null, 'r', addEntity, removeEntity, addRelationToResult,
+            changeRelationToResult, addPropertyToResult)
+        }
+
+      }
+    }
+
+    function addUserLabel(label, key, areaId, func) {
+      let labelElement = $(" <span class='n" + localStorageMap[key][label] + "' id = '" + "sp" + localStorageMap[key][
+        label
+      ] + "' >" + label + "</span>")
+      labelElement.click(function (obj) {
+        obj = $(obj.currentTarget)
+        user_word[content] = obj.text();
+        func(obj, content)
+        content = '';
+      });
+      $("." + areaId).append(labelElement);
+    }
+
+    // 添加 word 到 指定的element： labelObj上面
+    function addUserWord(labelObj, word) {
+      if (word === "") {
+        layer.msg("请拉取文字")
+        return
+      }
+      $('.border').append(" <span class='" + labelObj.attr("class") + "' >" + content + "/" + labelObj.text() +
+        "</span>");
+
+    }
+
+    /******************************************************************
+     * localStorage 增更新
+     *******************************************************************/
+    // 添加value后刷新后台Storage
+    function addValueToStorage(value, key) {
+      // console.log(value)
+      if (!(key in localStorageMap)) {
+        localStorageMap[key] = {}
+      }
+      if (value in localStorageMap[key]) {
+        // console.log(pos)
+        return
+      }
+      localStorageMap[key][value] = Object.keys(localStorageMap[key]).length
+      localStorage.setItem(key, JSON.stringify(localStorageMap[key]));
+    }
+
+    // 从Storage获取数据, 用于初始化
+    function updateValueFromStorage(key) {
+      if (localStorage.getItem(key) !== null) {
+        localStorageMap[key] = JSON.parse(localStorage.getItem(key))
+      } else {
+        if (key === "user_pos") {
+          localStorageMap[key] = {
+            "人名": 0,
+            "地名": 1,
+            "机构名": 2,
+            "时间": 3
+          }
+        } else {
+          localStorageMap[key] = {}
+        }
+        localStorage.setItem(key, JSON.stringify(localStorageMap[key]));
+
+      }
+    }
+
+    /*******************************************************************/
+    // 合并词典
+    function mergeDic() {
+      sum_map = {
+        ...poreMap,
+        ...localStorageMap["user_pos"]
+      }
+    }
+
+    // 获取分词结果,并调用refreshSegment刷新
+    function getSegment() {
+      $(".tect").css("display", "none");
+      $(".tect-1").css("display", "block");
+      $("#chu").css("display", "none");
+      $("#yin").css("display", "block");
+      $.ajax({
+        type: "post",
+        url: basePath + "/List/selectById",
+        data: {
+          id: id
+        },
+        dataType: "json",
+        success: function (res) {
+          $(".title").html(res.fileName)
+          text = res.fileName
+          $("#demo").html(res.content)
+          refreshSegment(res)
+        }
+      });
+      // refreshSegment(res)
+
+    }
+
+    // 获取任一id下所有span标签
+    function js(id) {
+      return document.getElementById(id).getElementsByTagName("span");
+    }
+
+
+    // 刷新分词界面 result 是后台返回的json
+    function refreshSegment(res) {
+      console.log(res)
+      mergeDic()
+      $("#te").html("");
+      $("#newci").html("");
+      var value = $("#demo").val();
+      if (res.classifier == "军事类") {
+        js("classifier")[0].className = "snow-container"
+      }
+      if (res.classifier == "政治类") {
+        js("classifier")[1].className = "snow-container"
+      }
+      if (res.classifier == "文化类") {
+        js("classifier")[2].className = "snow-container"
+      }
+      if (res.classifier == "教育类") {
+        js("classifier")[3].className = "snow-container"
+      }
+      if (res.classifier == "交通类") {
+        js("classifier")[4].className = "snow-container"
+      }
+      if (res.classifier == "艺术类") {
+        js("classifier")[5].className = "snow-container"
+      }
+      if (res.classifier == "体育类") {
+        js("classifier")[6].className = "snow-container"
+      }
+      var data = res.nlpir;
+      var nwf = res.nwf;
+      var word;
+      for (var i in data) {
+
+        // console.log(data[i].pos) //显示属性的名称
+        // console.log(data[i].word) //显示属性的值
+        var word = data[i].word;
+        var pop = data[i].pos;
+        $("#te").append(" <span class='n" + sum_map[pop] + "'>" + word + "</span>");
+        console.log(1111)
+      }
+      for (var j in nwf) {
+
+        var newfword = nwf[j].word;
+        var newfpop = nwf[j].pos;
+        if (newfpop !== "nwf") {
+          updateUserDic(newfword)
+        } else {
+          $("#newci").append(" <span class='n64'>" + newfword + "</span>");
+        }
+      }
+      for (var i = 0; i < js("te").length; i++) //循环取出id为left的容器里面的所有span
+      {
+        $(js("te")[i]).mouseup(function (obj) {
+          var cl = this.getAttribute("class");
+          // alert(cl); //弹出当前span的class名字
+          if (cl !== 'nundefined') {
+            obj = $(obj.currentTarget)
+            var relation_display = $('.relation').css('display');
+            var property_display = $('.property').css('display')
+            // if () {
+            if (relation_display == 'none') {
+              autoMachine(0, obj, null, null, 'p', addEntity_property, removeEntity_property,
+                addRelationToResult_property,
+                changeRelationToResult_property, addPropertyToResult_property)
+            }
+            if (property_display == 'none') {
+              autoMachine(0, obj, null, null, 'r', addEntity, removeEntity, addRelationToResult,
+                changeRelationToResult, addPropertyToResult)
+            }
+
+          }
+
+        });
+      }
+    }
+
+    function formReset() {
+      $("#btty").val("");
+      $("#btty_relation").val("");
+      $("#btty_property").val("");
+    }
+
+    // 实体弹出框
+    function add_entity() {
+      formReset()
+      layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        $ = layui.jquery;
+        form = layui.form,
+          index = layer.open({
+            type: 1,
+            shade: 0.5,
+            anim: 1,
+            shadeClose: true, //开启遮罩关闭
+            title: "新增词性",
+            area: ['400px', '168px'],
+            content: $("#test"),
+            end: function (res) {
+              $("#test").css("display", 'none');
+            }
+          });
+        return false;
+      });
+    }
+
+    // 关系弹出框
+    function add_relation() {
+      formReset()
+      layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        $ = layui.jquery;
+        form = layui.form,
+          index_relation = layer.open({
+            type: 1,
+            shade: 0.5,
+            anim: 1,
+            shadeClose: true, //开启遮罩关闭
+            title: "新增关系",
+            area: ['400px', '168px'],
+            content: $("#test_relation"),
+            end: function (res) {
+              $("#test_relation").css("display", 'none');
+            }
+          });
+        return false;
+      });
+    }
+
+    // 属性弹出框
+    function add_property() {
+      formReset()
+      layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        $ = layui.jquery;
+        form = layui.form,
+          index_property = layer.open({
+            type: 1,
+            shade: 0.5,
+            anim: 1,
+            shadeClose: true, //开启遮罩关闭
+            title: "新增属性",
+            area: ['400px', '168px'],
+            content: $("#test_property"),
+            end: function (res) {
+              $("#test_property").css("display", 'none');
+            }
+          });
+        return false;
+      });
+    }
+
+
+
+
+
+    // 关系实体点击添加
+    function addEntity(element) {
+      var entity = $('.entity').css('display');
+      console.log(element)
+      if (entity == 'none') {
+        $('.relation_result').append($(" <span class='" + element.attr("class") + "' >" + element.text() +
+          "</span>"));
+      }
+
+    }
+
+
+    // 关系实体再点击消失
+    function removeEntity(element) {
+      var entity = $('.entity').css('display');
+
+      // 清楚relation_result元素最后一项
+      if (entity == 'none') {
+        $(".relation_result")[0].lastChild.remove()
+        console.log(element)
+      }
+
+    }
+
+    // 关系模块   点击关系添加
+    function addRelationToResult(element) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.relation_result').append(" <span class='" + element.attr("class") + "' >" + element.text() + "</span>");
+        lastClass = element.attr("class")
+      }
+
+    }
+
+
+    // 再点击关系消失
+    function changeRelationToResult(element) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.relation_result').append(" <span class='" + element.attr("class") + "' >" + element.text() + "Change!" +
+          "</span>");
+        lastClass = element.attr("class")
+        $(".relation_result")[0].lastChild.remove()
+      }
+
+
+    }
+
+    function addPropertyToResult(text) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.relation_result').append("<span class='" + lastClass + "' >" + text + "</span>");
+      }
+
+    }
+
+
+
+
+    // 属性实体点击添加
+    function addEntity_property(element) {
+      var entity = $('.entity').css('display');
+      // console.log(element)
+      if (entity == 'none') {
+        $('.property_result').append($(" <span class='" + element.attr("class") + "' >" + element.text() +
+          "</span>"));
+      }
+
+    }
+
+    // 属性实体再点击消失
+    function removeEntity_property(element) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        // 清楚relation_result元素最后一项
+        $(".property_result")[0].lastChild.remove()
+        console.log(element)
+      }
+
+    }
+
+    // 属性模块再点击  属性添加
+    function addRelationToResult_property(element) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.property_result').append(" <span class='" + element.attr("class") + "' >" + element.text() + "</span>");
+        lastClass = element.attr("class")
+      }
+
+    }
+    // 再点击属性消失
+    function changeRelationToResult_property(element) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.property_result').append(" <span class='" + element.attr("class") + "' >" + element.text() + "Change!" +
+          "</span>");
+        lastClass = element.attr("class")
+        $(".property_result")[0].lastChild.remove()
+      }
+
+
+    }
+
+    function addPropertyToResult_property(text) {
+      var entity = $('.entity').css('display');
+      if (entity == 'none') {
+        $('.property_result').append("<span class='" + lastClass + "' >" + text + "</span>");
+      }
+
+
+    }
+
+
+    // 增加属性   按钮事件   添加关系在页面和storage
+    $("#btt_property").click(function () {
+      var property = $("#btty_property").val();
+      console.log(property)
+      addValueToStorage(property, "property")
+      addUserLabel(property, "property", "property_stg", addProperty)
+      layer.close(index_property)
+    })
+
+
+
+
+
+
+
+
+
+
+    // 增加实体词性 按钮 事件, 添加词性在页面和storage
+    $("#btt_entity").click(function () {
+      var newci = $("#btty").val();
+      addValueToStorage(newci, "user_pos")
+      addUserLabel(newci, "user_pos", "bie", addUserWord)
+      // refreshUserPOS(newci)
+      // document.cookie = ("basket-data", JSON.stringify(user_map));
+      // localStorage.setItem('bgcolor', JSON.stringify(user_map));
+      layer.close(index);
+    })
+
+    function addRelation(labelObj, relation) {
+      autoMachine(1, labelObj, relation, null, 'r', addEntity, removeEntity, addRelationToResult,
+        changeRelationToResult, addPropertyToResult)
+    }
+
+    function addProperty(labelObj, property) {
+      autoMachine(1, labelObj, property, null, 'p', addEntity_property, removeEntity_property,
+        addRelationToResult_property,
+        changeRelationToResult_property, addPropertyToResult_property)
+    }
+
+
+    // 增加关系   按钮事件   添加关系在页面和storage
+    $("#btt_relation").click(function () {
+      console.log(111)
+      var relation = $("#btty_relation").val();
+      addValueToStorage(relation, "relation")
+      addUserLabel(relation, "relation", "relation_stg", addRelation)
+      layer.close(index_relation)
+    })
+
+
+
+
+    // 导入用户词典 按钮 事件
+
+
+
+    // $(".bie").html("")
+
+    var a = $('.border')
+
+    // if (a.innerHTML == "") {
+    //   return false
+    // } else {
+    //  弹出框
+    layui.use(['layer', 'form', 'element'], function () {
+      var layer = layui.layer;
+      $ = layui.jquery;
+      element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+      form = layui.form,
+        $(".site-demo-active").click(function () {
+          import_data = layer.open({
+            type: 1,
+            shade: 0.5,
+            anim: 1,
+            shadeClose: true, //开启遮罩关闭
+            title: "标注统计",
+            area: ['400px', '180px'],
+            content: $("#import_data"),
+            end: function (res) {
+              $("#import_data").css("display", 'none');
+            }
+          });
+          // 进度条
+          var active = {
+            loading: function (othis) {
+              var DISABLED = 'layui-btn-disabled';
+              if (othis.hasClass(DISABLED)) return;
+              //模拟loading
+              var n = 0,
+                timer = setInterval(function () {
+                  n = n + Math.random() * 10 | 0;
+                  if (n > 100) {
+                    n = 100;
+                    clearInterval(timer);
+                    othis.removeClass(DISABLED);
+                  }
+                  element.progress('demo', n + '%');
+                }, 1000);
+              // 300+ Math.random() *1000
+
+              othis.addClass(DISABLED);
+            }
+          };
+          var othis = $(this),
+            type = $(this).data('type');
+          active[type] ? active[type].call(this, othis) : '';
+
+          // 数字梯增
+          numScroll('num', 20, 23000)
+          numScroll('bum', 65, 23000)
+          // setInterval(function () {
+          //   numScroll('num', 12000, 2000)
+          // }, 4000)
+
+          function numScroll(id, maxNum, time) {
+            var numDom = document.getElementById(id)
+            var numInit = 0
+            var addNum = maxNum / (time / 10)
+            var minTime = time / maxNum
+            var t = setInterval(function () {
+              if (numInit >= maxNum) {
+                clearInterval(t)
+                numDom.innerText = maxNum
+              } else {
+                numInit += addNum
+                numDom.innerText = Math.round(numInit)
+              }
+            }, 10)
+          }
+
+          // 渲染数据
+          var data = []
+          for (k in user_word) {
+            var word = k.replace(/\s*/g, '');
+            data.push({
+              "word": word,
+              "pos": user_word[k]
+              //  这个开始是word
+            })
+            // setCookie(k, user_word[k])
+
+          }
+          // console.log(data)
+          var data_index = {
+            "id": id,
+          }
+          data_index["data"] = data;
+          $.ajax({
+            type: "post",
+            url: basePath + "/Lexicon/AddUserWordCount",
+            data: JSON.stringify(data_index),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function (response) {
+              console.log(response)
+              $("#count").html(response.count)
+              getSegment()
+              $("#te").html("");
+              $(".border").html("")
+              if (response.status == 1) {
+                layer.msg("导入失败")
+              }
+            }
+          });
+
+        })
+
+    });
+
+
+
+    // }
+    // })
+
+
+
+    // 导入关系词典  按钮  事件
+    $("#storageRelation").click(function () {
+      let arr = document.getElementById("relation_result").children
+      // console.log(arr);
+      let newArr = [];
+      var storageProperty = {
+        "type": "关系",
+        "source": text,
+      }
+      for (let index = 0; index < arr.length; index = index + 3) {
+        let obj = {}
+        obj.subject = arr[index].innerHTML.replace(/\s*/g, '')
+        obj.predicate = arr[index + 1].innerHTML.replace(/\s*/g, '')
+        obj.object = arr[index + 2].innerHTML.replace(/\s*/g, '')
+        newArr.push(obj)
+      }
+      storageProperty["data"] = newArr;
+      $.ajax({
+        type: "post",
+        url: basePath + "/Mark/MarkToES",
+        data: JSON.stringify(storageProperty),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (response) {
+          layer.msg(response.message)
+          $("#relation_result").html("");
+        }
+      });
+
+
+
+
+      // console.log(span_relation)
+
+    })
+
+    // 导入属性词典   按钮  事件
+    $("#storageProperty").click(function () {
+      let arr = document.getElementById("property_result").children
+      // console.log(arr);
+      let newArr = [];
+      var storageProperty = {
+        "type": "属性",
+        "source": text,
+      }
+      for (let index = 0; index < arr.length; index = index + 3) {
+        let obj = {}
+        obj.subject = arr[index].innerHTML.replace(/\s*/g, '')
+        obj.predicate = arr[index + 1].innerHTML.replace(/\s*/g, '')
+        obj.object = arr[index + 2].innerHTML.replace(/\s*/g, '')
+        newArr.push(obj)
+      }
+      storageProperty["data"] = newArr;
+      $.ajax({
+        type: "post",
+        url: basePath + "/Mark/MarkToES",
+        data: JSON.stringify(storageProperty),
+        dataType: "json",
+        contentType: 'application/json',
+        success: function (response) {
+          layer.msg(response.message)
+          $("#property_result").html("");
+        }
+      });
+
+    })
+
+    function taa() {
+      $(".tect").css("display", "block");
+      $(".tect-1").css("display", "none");
+      $('#chu').css("display", "block")
+      $('#yin').css("display", "none")
+      // $("#newci").html("")
+      // $(".bie").html("")
+      // $(".classifier").html("")
+    }
+
+
+    var currentStatus = {}
+
+    // 最后标注后增加到列表的词块
+
+    var lastObjectElement = null
+
+    var lastClass = ""
+
+
+
+    function autoMachine(action, element, text, cls, type, addSubject, removeSubject, addPredicate, changePredicate,
+      addObject) {
+
+      /*
+
+      三个状态,分别代表:
+
+      0 未开始标注
+
+      1 标注完实体
+
+      2 标注完关系
+
+      3 标注完属性 -> 0
+
+      动作:
+
+      0 点击词
+
+      1 点击关系
+
+      2 划取属性
+
+       */
+
+      // console.log(currentStatus, action)
+
+      if (!(type in currentStatus)) {
+
+        currentStatus[type] = 0
+
+      }
+
+      switch (currentStatus[type]) {
+
+        case 0:
+
+          switch (action) {
+
+            case 0:
+
+              // 显示词到列表
+
+              // 词的class, text, 最好是element
+
+              addSubject(element)
+
+              currentStatus[type] = 1
+
+              break;
+
+            case 1:
+
+              // do nothing
+
+              break;
+
+            case 2:
+
+              // do nothing
+
+              break;
+
+          }
+
+          break;
+
+        case 1:
+
+          switch (action) {
+
+            case 0:
+
+              // 词消失, 返回未标注状态
+
+              // 词的element
+
+              removeSubject(element)
+
+              currentStatus[type] = 0
+
+              break;
+
+            case 1:
+
+              // 词表增加关系
+
+              // 关系的element, 点击事件可以获取
+
+              addPredicate(element)
+
+              currentStatus[type] = 2
+
+              break;
+
+            case 2:
+
+              // do nothing
+
+              break;
+
+          }
+
+          break;
+
+        case 2:
+
+          switch (action) {
+
+            case 0:
+
+              // do nothing
+
+              break;
+
+            case 1:
+
+              // 关系改变, 状态不变
+
+              // 关系的element, 点击事件可以获取
+
+              changePredicate(element)
+
+              break;
+
+            case 2:
+
+              // 显示属性, 状态变为标注完属性
+
+              // 属性对应文字
+
+              addObject(text)
+
+              currentStatus[type] = 0
+
+              break;
+
+          }
+
+          break;
+
+      }
+    }
+  </script>
+
+
+</body>
+
+
+</html>

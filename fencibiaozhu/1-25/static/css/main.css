@@ -1,0 +1,385 @@
+* {
+  padding: 0;
+  margin: 0
+}
+
+ul,
+li {
+  list-style: none
+}
+
+.tab {
+  overflow: hidden
+}
+
+
+.titleBox {
+  float: left;
+  width: 8.2%;
+  background-color: #ccc;
+  height: 80%;
+  position: relative;
+  overflow: hidden;
+}
+
+.titleList {
+  margin: auto 0;
+  position: relative;
+  z-index: 2
+}
+
+.titleList li span {
+  color: #333;
+  padding: 20px;
+  width: 80px;
+  display: block
+}
+
+.current span {
+  color: #fff !important
+}
+
+.contentBox {
+  /* float: right;
+    width: 91.8%;
+    height: 79.8% */
+  float: right;
+  width: 49.8%;
+  height: 800px;
+  border-radius: 10px;
+  background-color: rgba(125, 125, 125, 0.2);
+
+}
+
+.re {
+  width: 49.5%;
+  height: 800px;
+  /* box-shadow: 0px 0px 30px#3be0f4; */
+  border-radius: 10px;
+  background-color: rgba(125, 125, 125, 0.2);
+  float: left;
+  border: 1px solid black;
+}
+
+.contentList {
+  /* background-color: #fff; */
+  border: 1px solid black;
+}
+
+.contentList li {
+  /* height: 600px */
+  height: 100%;
+  background-color: #fff;
+}
+
+.contentList li p {
+  color: black
+}
+
+.backBox {
+  background-color: #0d38f8;
+  z-index: 0;
+  width: 90px;
+  border-radius: 10px;
+  margin-left: 5px;
+  position: absolute
+}
+
+.backBox::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  top: -15px;
+  left: calc(50% - 8px)
+}
+
+.backBox::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #fff;
+  bottom: -15px;
+  left: calc(50% - 8px)
+}
+
+.backBox img {
+  width: 16px;
+  height: 16px;
+  display: block;
+  position: absolute
+}
+
+.backBox img:first-child {
+  top: -20px
+}
+
+.backBox img:last-child {
+  left: calc(50% - 8px);
+  bottom: -20px
+}
+
+.le {
+  width: 100%;
+  height: 100%;
+  /* background-color: rgb(238, 235, 241); */
+  background-color: rgba(125, 125, 125, 0.2);
+  float: left;
+  /* padding: 10px 30px; */
+}
+
+
+.sh {
+  width: 99%;
+  height: 150px;
+  overflow: auto;
+  /* background-color: rgb(212, 145, 238); */
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.sh-1 {
+  /* margin: 10px 0px; */
+  padding: 4px;
+  font-size: 16px;
+  font-family: cursive;
+  font-weight: bold;
+  color: #fff;
+
+}
+
+.sh-2 {
+  margin: 10px 0px 0px 0px;
+  /* height: 350px; */
+
+}
+
+.sh-3 {
+  width: 100%;
+  height: 30px;
+  margin: 10px 0px;
+  text-align: center;
+}
+
+.sh-3 button {
+  width: 150px;
+  height: 30px;
+  border: 0;
+  background: aqua;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bie {
+  margin-top: 10px;
+}
+
+
+
+.spinning-top {
+  width: 100%;
+  height: 30px;
+  /* background-color: coral; */
+}
+
+.title {
+  width: 60%;
+  height: 100%;
+  float: left;
+  margin-top: 16px;
+  margin-left: 10px;
+  color: red;
+
+}
+
+.but {
+
+  float: right;
+  border: 0;
+  width: 80px;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 2%;
+  background: aqua;
+  margin-top: 10px;
+}
+
+.tect {
+  width: 100%;
+  height: 100%;
+
+}
+
+.tect-1 {
+  width: 95%;
+  height: 92%;
+  /* background-color: blueviolet; */
+  /* margin-top: 20px; */
+  overflow: auto;
+  color: #fff;
+  /* padding-left: 5px; */
+  padding: 10px 10px 0px 17px;
+  background-color: rgba(12, 12, 12, 0.6);
+}
+
+#main {
+  width: 100%;
+  height: 450px;
+  padding-top: 120px;
+  z-index: 100;
+}
+
+#guanjian {
+  width: 100%;
+  height: 650px;
+  z-index: 100;
+}
+
+#cipin {
+  width: 100%;
+  height: 650px;
+  z-index: 100;
+}
+
+#ci1 {
+  width: 97%;
+  margin: 10px 10px 0px 10px;
+  height: 32%;
+  z-index: 100;
+  /* background-color: blueviolet; */
+}
+
+#ci2 {
+  width: 97%;
+  margin: 10px 10px 0px 10px;
+  height: 32%;
+  z-index: 100;
+  /* background-color: blueviolet; */
+}
+
+#ci3 {
+  width: 97%;
+  margin: 10px 10px 0px 10px;
+  height: 32%;
+  z-index: 100;
+  /* background-color: blueviolet; */
+}
+
+.border {
+  border: 1px solid #26c9cf;
+  border-radius: 10px;
+}
+
+.kzi {
+  color: black;
+  /* background-color: rgb(25, 26, 25); */
+  /* padding: 2px; */
+  display: inline-block;
+  margin: 5px 5px;
+  border-radius: 5px;
+}
+
+#layui-layer1 {
+  background-color: rgba(12, 12, 12, 0.6) !important;
+}
+
+.classify {
+  width: 100%;
+  height: 102px;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid black;
+}
+
+.sh-guan {
+  width: 99%;
+  height: 250px;
+  overflow: auto;
+  /* background-color: rgb(212, 145, 238); */
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.sh-shuxing {
+  width: 99%;
+  height: 250px;
+  overflow: auto;
+  /* background-color: rgb(212, 145, 238); */
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.relation_result {
+  border: 1px solid #26c9cf;
+  border-radius: 10px;
+}
+
+.property_result {
+  border: 1px solid #26c9cf;
+  border-radius: 10px;
+}
+
+.snow-container {
+  font-family: "΢���ź�";
+  font-size: 16px;
+  color: #000;
+  width: auto;
+  height: 24px;
+  background-color: #b4acff;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 6px;
+}
+
+#classifier span {
+  margin-left: 20px;
+}
+
+#entity {
+  background-color: aqua;
+}
+
+#relation {
+  background-color: royalblue;
+}
+
+#property {
+  background-color: seagreen;
+}
+
+.shishi {
+  pointer-events: none;
+}
+
+.dest {
+  width: 100%;
+  color: #fff;
+  height: 100%;
+  /* background-color: #0d38f8; */
+  text-align: center;
+}
+
+.gap {
+  margin: 8px 0px;
+}
+.bie span {
+	cursor:pointer;
+}
+.relation_stg span {
+	cursor: pointer;
+}
+.property_stg span {
+	cursor: pointer;
+}
+#classifier span {
+	cursor: pointer;
+}

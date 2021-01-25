@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+#location{ float: left;  margin-top: 10px;}
+#location p{ float: left; margin-left: 10px; margin-top: 2px;}
+#location embed{ float: left; }
+
+
+#search{ float:right;}
+#search input{ width:400px; height:32px; border:1px #0093dd solid; padding:8px 4px; color:#c9c9c9; float:left;}
+#search button{ border:none; padding:5px 12px; background-color:#0093dd; color:white; font-weight:bold; font-size:16px; float:left;}
+#search select{border:1px #0093dd solid; float:left; height:32px; margin-right:-1px;}
+
+.box{ background-color:#fff; padding:100px 25px 20px 25px; margin-top:20px; margin-bottom: 20px;}
+.right{ float:right; text-align:center}
+.left{ float:left;}
+
+.title{ border-bottom:1px #dde9ef solid; padding-bottom:10px; margin-bottom:15px; position:relative;}
+.title h3{font-size:18px; font-weight:bold; color:#333; float:left; line-height:26px;}
+.title .btn-success {
+    margin-left: 20px;
+    background: rgb(0, 153, 255);
+}
+
+
+.top_select{ margin: 25px 0 15px 0;}
+.top_select h4{ float: left; margin: 2px 90px 0 0; font-size: 14px; font-weight: bold;}
+.top_select p{ float: left; margin: 0 6px 0 0; font-size: 14px;}
+
+
+
+
+
+.list table{ width:1120px; }
+.list table,.list tr,.list th,.list td{ padding:10px 8px; text-align:center; }
+.list td span{ color: #0093dd; }
+.list td .btn-primary,.list td .btn-danger,.list td .btn-change,.list td .btn-success{ margin-left:20px;}
+.list td .disabled{ margin-left:20px;}
+.list td .btn.disabled{ background-color:#aaa;}
+
+#add{ position:absolute; z-index:1; width:700px; background-color:white; border:1px #57a5fd solid; top:54px; left:200px;}
+#change,#delete,#xufei{ position:absolute; z-index:1; width:350px; background-color:white; border:1px #57a5fd solid; top:54px; left:380px;}
+#add select.form-control,#change select.form-control,#delete select.form-control{ width:179px;}
+#add .form-control,#change .form-control,#delete .form-control{ margin-top:16px;}
+#add .top,#change .top,#delete .top{ background-color:#0093dd; border-bottom:1px #57a5fd solid; height:50px; width:100%; font-size:16px; color:#fff; font-weight:bold; padding:14px 27px;}
+#change .box2,#delete .box2{ width:270px; margin:0 auto; margin-top:20px;}
+#add .box2{ width:640px; margin:0 auto; margin-top:20px;}
+#add .box2 h3,#change .box2 h3,#delete .box2 h3{ font-size:16px; color:#393939; font-weight:normal; float:left; margin-top:20px; line-height:24px;}
+#add .box2 .single,#change .box2 .single{ margin-top:20px; float:left; margin-left:25px;}
+#add .box2 .single input,#change .box2 .single input{ margin-right:4px;}
+#add .box2 span,#change .box2 span{ color:#bdbdbd; font-size:12px; float:right;}
+#add .box2 button,#change .box2 button,#delete .box2 button{ margin:30px 15px;}
+
+#add table,#add  tr,#add  th,#add  td{ padding:5px 4px; text-align:center; }
+#add table{ margin-top:16px;}

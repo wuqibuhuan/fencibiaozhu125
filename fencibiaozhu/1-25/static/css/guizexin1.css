@@ -1,0 +1,176 @@
+.lift {
+    width: 37%;
+    height: 970px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    float: left;
+    border-radius: 5px;
+}
+
+.lift p {
+    margin: 10px;
+    font-size: 16px;
+}
+
+.rigtt {
+    width: 60%;
+    height: 180px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    float: right;
+    border-radius: 5px;
+}
+
+.kuang {
+    width: 96%;
+    height: 150px;
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    /* margin-top: 20px; */
+    /* float: right; */
+    border-radius: 5px;
+     overflow:auto;
+     padding: 10px;
+}
+
+.rigtt input {
+    width: 80px;
+    display: inline-block;
+
+}
+
+.rigtt .jianju {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.rigtt .jianju button {
+    width: 100px;
+    border: 0;
+    border-radius: 6px;
+    height: 28px;
+    /* background: aliceblue; */
+
+}
+
+.rigbuttom {
+    width: 60%;
+    height: 770px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    float: right;
+    border-radius: 5px;
+}
+
+.rigbuttom p {
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+
+.but {
+    float: right;
+}
+
+.but button {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.rigbuttom .butt {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px;
+    float: right;
+}
+
+
+.monospot input {
+    width: 80px;
+    display: inline-block;
+    /* border: 1px solid #ccc; */
+}
+
+.monospot .jianju {
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+.monospot #butt {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 0px 6px !important;
+    float: right;
+
+}
+
+.rigtt input:focus {
+    /* border-style:solid;
+    border-color: #03a9f4; */
+    border: 1px solid #0daaed;
+    box-shadow: 0 0 5px #03a9f4;
+}
+
+select:focus {
+    border: 1px solid #0daaed;
+    box-shadow: 0 0 5px #03a9f4;
+
+}
+
+.monospot input:focus {
+    /* border-style:solid;
+    border-color: #03a9f4; */
+    border: 1px solid #0daaed;
+    box-shadow: 0 0 5px #03a9f4;
+}
+
+.texts textarea {
+    width: 97.3%;
+    height: 450px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+
+.ru .two {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 0px 6px !important;
+    float: right;
+}
+
+.one {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px 6px !important;
+    float: left;
+
+}
+
+.container input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* border: 0; */
+}

@@ -1,0 +1,929 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>词注管理</title>
+  <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./static/css/commen.css" rel="stylesheet">
+  <link href="./static/css/report list.css" rel="stylesheet">
+  <link href="./static/css/support.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="./static/css/styles.css">
+  <link rel="stylesheet" href="./static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="./static/css/herder.css">
+  <link rel="stylesheet" href="./static/css/li.css">
+  <link rel="stylesheet" href="./static/css/zi.css">
+  <link rel="stylesheet" type="text/css" href="./static/css/default.css" />
+  <script src="./static/fontt/iconfont.js"></script>
+
+  <meta name="keywords" content="毕业论文,论文格式,目录,参考文献,首行缩进,脚注,页眉,页码设置,页面设置,引用格式" />
+  <style>
+    .cor {
+      color: #0daaed;
+    }
+
+    .layui-laypage-limits {
+      display: none !important;
+    }
+
+    .icon {
+      width: 2.4em;
+      height: 1.4em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+
+    .red {
+      background-color: #b8e2f3;
+    }
+
+    .zeng {
+      color: #0daaed;
+    }
+  </style>
+</head>
+
+<body>
+  <!doctype html>
+  <html>
+  <div id="particles-js">
+    <!-- <canvas width="100" height="100" style="width:100%;height:100%;"></canvas> -->
+  </div>
+  <script src="./static/js/herder.js"></script>
+  <div class="container">
+    <div class="clearfix"></div>
+    <div class="box" style="height: 758px;">
+      <div class="title">
+        <h3>词库管理</h3>
+
+
+      </div>
+      <!-- 实体列表 -->
+      <div class="shiti" style="width: 49%; height: 608px; float: left; ">
+        <div class="title">
+          <h5 style="float: left; font-size: 17px;">实体列表</h5>
+          <svg class="icon" aria-hidden="true" onclick="shiti_dao()">
+            <use xlink:href="#icon-xiazai"></use>
+          </svg>
+          <!-- <button style="width: 80px; border: 0; color: black; border-radius: 5px;float: left;"
+            onclick="shuxing_dao()">导出</button> -->
+        </div>
+        <table class="table-striped table-bordered table-hover" id="demo" lay-filter="demo">
+        </table>
+      </div>
+
+
+      <div class="guanxi" style="width: 49%; height: 608px; float: right; ">
+        <div class="title">
+          <h5 style="font-size: 17px; height: 25px; float: left;">词汇列表</h5>
+          <table style="float: right;">
+            <tr>
+
+              <!-- <td style="width: 80px; color: #fff;">
+                <h4>实体查询：</h4>
+              </td> -->
+              <td>
+                <input class="form-control" style="width:180px; height: 26px;" type="text" name="seach" id="name_cizhu">
+              </td>
+              <td>
+                <button id="cizhu" class="sure btn btn-add"
+                  style="background-color: rgba(125, 125, 125, 0.2); margin-left: 10px; padding: 0px 12px !important;">查询</button>
+              </td>
+            </tr>
+          </table>
+          <div class="clearfix"></div>
+        </div>
+        <table class="table-striped table-bordered table-hover" id="table" lay-filter="table">
+        </table>
+      </div>
+
+      <!-- 关系列表 -->
+    </div>
+  </div>
+  <script type="text/javascript" src="./static/js/jquery-1.11.3.min.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="./static/js/3.3.2bootstrap.min.js"></script>
+  <script src="./static/js/particles.js"></script>
+  <script src="./static/js/app.js"></script>
+  <script src="./static/js/particles.min.js"></script>
+  <script src="./static/js/basepath.js"></script>
+  <script src="./static/layui/layui.js"></script>
+  <script src="./static/js/style.js"></script>
+
+  <script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">
+      <p>查看</p>
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="del">
+      <p>删除</p>
+    </a>
+    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" ><p>删除文件</p></a> -->
+  </script>
+
+  <!-- <script type="text/html" id="titleTpl">
+  {{#  if(d.count ==""){ }}
+    <a href="/detail/{{d.id}}" class="layui-table-link">{{d.title}}</a>
+  {{#  } else { }}
+    {{d.title}}(普通用户)
+  {{#  } }}
+</script> -->
+
+  <script>
+    $("herder li a").each(function () {
+      if ($(this)[0].href == String(window.location)) {
+        $(this).addClass("on").siblings().removeClass("on");
+      }
+    });
+    $(function () {
+      loadList();
+      // guanxi();
+
+      // xiangsi();
+    });
+
+    function shiti_dao() {
+      // var type = "属性"
+      // window.open(basePath + "/Mark/markExportExcel?type=" + type)
+      window.location.href = basePath + "/Lexicon/lexiconExport"
+
+    }
+   
+
+    function getQueryString(name) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    }
+    var pos;
+    // window.setInterval("freshList()",7000);
+    // 文档列表
+    function loadList() {
+
+      //获取查询时间与查询内容
+      var userId = $("#userId").val();
+      var createDate = $("#time").val();
+      var status = $("#selectType option:selected").val();
+      var documentName = $("#name").val();
+      layui.use(['table', 'layer', 'laydate', 'laypage', 'util'], function () {
+        var $ = layui.$,
+          table = layui.table,
+          layer = layui.layer,
+          laydate = layui.laydate;
+        var laypage = layui.laypage;
+        var util = layui.util;
+        //自定义格式
+        laydate.render({
+          elem: '#demo',
+          format: 'yyyy/MM/dd',
+          range: true,
+          theme: '#ff7f4f',
+          done: function (value, date, endDate) {
+            $("#time").val(value);
+            // table.reload('demo', {
+            //     url: basePath + '/file/doc_list',
+            //     where: { //设定异步数据接口的额外参数，任意设
+            //         limitName: '10',
+            //         pageName: '1',
+            //         // userId:userId,
+            //         createDate: value,
+            //         status: "",
+            //         documentName: "",
+            //         time: time
+            //     }
+            // });
+          }
+        });
+
+
+
+        table.render({
+          elem: '#demo',
+          id: 'goverTable',
+          page: {
+            theme: '#ff7f4f',
+          },
+
+          page: true,
+          // limits: [5, 10, 15], //显示
+          limit: 12, //每页默认显示的数量
+          where: {
+            // userId:userId,
+            // createDate: createDate,
+            // status: status,
+            // likeName: documentName,
+            // type: "关系"
+          } //如果无需传递额外参数，可不加该参数
+          ,
+          url: basePath + '/Lexicon/Pos',
+          cols: [
+            [
+              // { type: 'checkbox', width: 100, fixed: 'left', align: 'center' }
+              {
+                title: '序号',
+                align: 'center',
+                type: 'numbers',
+                // sort: true,
+                width: 180
+              }, {
+                field: 'pos',
+                title: '实体名称',
+                // width: 250,
+                align: 'center'
+              },
+
+            ]
+          ],
+          done: function (res, curr, count) {
+            console.log(res)
+
+            // 遍历data数据   拿到第一条   默认刷新页面  添加背景色
+            for (var i = 0; i < res.data.length; i++) {
+
+              $(".layui-table tbody tr").eq(0).css("background-color", "#b8e2f3")
+
+            }
+
+            pos = $(".layui-table-body.layui-table-main tr[data-index='0'] [data-field='pos']").text();
+            // $(" .layui-table-body .layui-table-main tr[data-index='0']").style.backgroundColor = "#b8e2f3";
+            // $('.layui-table-view[lay-id="goverTable"] .layui-table-body .layui-table-main tr[data-index="0"]')
+            //   .css("backgroundColor", "#b8e2f3")
+
+
+            guanxi()
+            //定义一个全局的变量
+
+            var tmpobj = null;
+
+            //定义一个全局要传递的id，方便取值
+            var uuid = '  ';
+            //监听行单击事件
+            table.on('row(demo)', function (obj) {
+              for (var i = 0; i < res.data.length; i++) {
+                $(".layui-table tbody tr").eq(0).css("background-color", "rgba(125, 125, 125, 0.7)")
+              }
+              // console.log(obj)
+              $(".active-tr").removeClass("active-tr");
+              obj.tr.addClass("active-tr");
+              //定义单击行改变行的背景颜色
+              if (tmpobj != null) {
+                tmpobj.tr[0].style = 'background-color: rgba(125, 125, 125, 0.2);';
+                if (tmpobj.tr[1]) {
+                  tmpobj.tr[1].style = 'background-color: rgba(125, 125, 125, 0.2);';
+                }
+              }
+
+              tmpobj = obj;
+              obj.tr[0].style = 'background-color: #b8e2f3;';
+              if (obj.tr[1]) {
+                obj.tr[1].style = 'background-color: #b8e2f3;';
+              }
+              //获得当前行数据
+              var rowData = obj.data;
+              uuid = rowData.uuid;
+              console.log(rowData)
+              ppo = rowData.pos
+              pos = rowData.pos
+              guanxi();
+
+
+            });
+
+          },
+          parseData: function (res) { //res 即为原始返回的数据
+            //    console.log(res.data.pageList[name])
+
+            return {
+              "code": res.status, //解析接口状态
+              "msg": res.message, //解析提示文本
+              "count": res.totalCount, //解析数据长度
+              "data": res.result //解析数据列表
+            };
+          },
+          request: {
+            pageName: 'pageNo' //页码的参数名称，默认：page
+              ,
+            limitName: 'pageSize' //每页数据量的参数名，默认：limit
+          }
+
+        });
+
+        // $("#cizhu").click(function () {
+        //   var word = $("#name_cizhu").val();
+        //   $.ajax({
+        //     type: "post",
+        //     url: basePath + "/Lexicon/SearchWord",
+        //     data: {
+        //       word: word,
+        //       pos: pos,
+        //       pageNo: 1,
+        //       pageSize: 12
+        //     },
+        //     dataType: "json",
+        //     success: function (response) {
+        //       if (response.status == 0) {
+        //         layer.msg(response.message)
+        //         guanxi()
+        //       } else {
+        //         layer.msg(response.message)
+        //       }
+        //     }
+        //   });
+        // })
+
+        //监听表格复选框选择
+        table.on('checkbox(demo)', function (obj) {
+          console.log(obj);
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function (obj) {
+          var data = obj.data;
+          console.log(obj)
+          if (obj.event === 'detail') {
+            if (data.status == '解析失败') {
+              layer.msg('此文件解析失败，无法查看明细', {
+                time: 1800,
+                icon: 2
+              });
+            } else {
+              var time = getQueryString(name = "time")
+              console.log(time)
+              var uuid = obj.data.uuid
+              console.log(time)
+              console.log(uuid)
+              var url = "./fllow.html?time=" + time + "&uuid=" + uuid;
+              window.location.href = url;
+            }
+
+          } else if (obj.event === 'del') {
+            layer.confirm('确认删除？', {
+              btn: ['确定', '取消'],
+              btn1: function (index, layero) {
+                //后台执行删除操作
+                $.post(basePath + '/eye/delete', {
+                  'docId': data.id
+                }, function (data) {
+                  if (data.status == 1) {
+                    layer.msg("删除成功", {
+                      time: 1800,
+                      icon: 1
+                    });
+                    loadList();
+                  } else {
+                    layer.msg('删除失败', {
+                      time: 1800,
+                      icon: 2
+                    });
+                  }
+                }, 'json');
+                layer.close(index);
+              },
+              btn2: function (index, layero) {
+                layer.close(index);
+              }
+            });
+          } else if (obj.event === 'edit') {
+
+
+
+            var uuid = obj.data.uuid
+
+            console.log(uuid)
+            window.open(basePath + "/file/download?uuid=" + uuid)
+
+          }
+        });
+
+      });
+    };
+
+    function batchDel() {
+      /* <![CDATA[*/
+      layui.use(['layer', 'table'], function () {
+        var table = layui.table,
+          layer = layui.layer,
+          $ = layui.$
+        var checkStatus = table.checkStatus('demo'),
+          data = checkStatus.data;
+        if (data == '') {
+          layer.msg('请选择要删除的文件', {
+            time: 1800,
+            icon: 1
+          });
+        } else {
+          layer.confirm('真的要删除么', {
+            btn: ['确定', '取消'],
+            btn1: function (index, layero) {
+              var json = '';
+              for (var i = 0; i < data.length; i++) {
+                json += data[i].id + '-';
+              }
+              $.post(basePath + '/eye/batch-delete', json, function (data) {
+                var data = eval('(' + data + ')');
+                if (data.status == 1) {
+                  layer.msg(data.msg, {
+                    time: 1800,
+                    icon: 1
+                  });
+                  loadList();
+                } else {
+                  layer.msg(data.msg, {
+                    time: 1800,
+                    icon: 2
+                  });
+                }
+              }, 'text');
+              layer.close(index);
+            },
+            btn2: function (index, layero) {
+              layer.close(index);
+            }
+          });
+        };
+
+        /*]]>*/
+      });
+    }
+
+    // 词汇列表
+    function guanxi() {
+      layui.use(['table', 'layer', 'laydate', 'jquery'], function () {
+        var $ = layui.jquery,
+          table = layui.table,
+          layer = layui.layer,
+          laydate = layui.laydate;
+        var createDate = $("#time3").val();
+        var search = $("#search").val();
+        var time = getQueryString(name = "time")
+        console.log(time)
+        //自定义格式
+
+        //属性列表显示
+        var tableIns = table.render({
+          elem: '#table',
+          //width: 1400,
+          // height: 280,
+          page: true,
+          where: {
+            pos: pos
+          }, //如果无需传递额外参数，可不加该参数
+          // limit: 10,
+          // limits: [5, 10, 15],
+          sort: true,
+          url: basePath + '/Lexicon/PosToWord',
+          method: 'GET',
+
+          parseData: function (res) {
+            // console.log(res)
+            return {
+              "code": res.status, //解析接口状态
+              "msg": res.message, //解析提示文本
+              "count": res.totalCount, //解析数据长度
+              "data": res.result //解析数据列表
+            };
+          },
+          request: {
+            pageName: 'pageNo' //页码的参数名称，默认：page
+              ,
+            limitName: 'pageSize' //每页数据量的参数名，默认：limit
+
+          },
+          cols: [
+            [
+              // { type: 'checkbox', width: 100, fixed: 'left', align: 'center' }
+              {
+                title: '序号',
+                align: 'center',
+                type: 'numbers',
+                // sort: true,
+                width: 180
+              }, {
+                field: 'word',
+                title: '词汇',
+                // width: 250,
+                align: 'center'
+              },
+
+            ]
+          ],
+          done: function (res, curr, count) {
+            // $('th').css({
+            //   'background-color': '#ed6a1a',
+            //   'color': '#fff',
+            //   'font-weight': 'bold'
+            // })
+          }
+        });
+        $('#cizhu').click(function () {
+
+          var word = $("#name_cizhu").val();	
+          tableIns.reload({
+            url: basePath + "/Lexicon/SearchWord",
+            // ,methods:"post"
+
+            request: {
+              pageName: 'pageNo' //页码的参数名称，默认：page
+                ,
+              limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            where: {
+              word: word,
+              pos: pos,
+            },
+            page: {
+              curr: 1
+            }
+          });
+        })
+        table.on('tool(tuwen)', function (obj) { //注：tool是工具条事件名，demo是table原始容器的属性 lay-filter="对应的值"
+          var data = obj.data; //获得当前行数据
+          // console.log(data)
+          var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+          var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+          if (layEvent === 'imagedetail') { //查看
+            // window.location.href =  '/imagedoc/start?id=' + data.id;
+            window.open(basePath + '/imagedoc/start?id=' + encodeURI(data.id));
+
+          } else if (layEvent === 'imagedel') { //删除
+            layer.confirm('确定删除文件名为：' + data.docName + "的文件吗?", function (index) {
+
+              // console.log(data.id);
+              //向服务端发送删除指令
+              $.ajax({
+                url: '/image/delete-one ',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                  'id': data.id
+                }, //向服务端发送删除的id
+                success: function (suc) {
+                  if (suc == 200) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    // console.log(index);
+                    layer.msg("删除成功", {
+                      icon: 1
+                    });
+                  } else {
+                    layer.msg("删除成功", {
+                      icon: 1
+
+                    });
+                    table.reload('imageTables', {
+                      where: { //设定异步数据接口的额外参数，任意设
+                        'id': data.id
+                      },
+                      page: {
+                        //  curr: 1 //重新从第 1 页开始
+                        curr: $(".layui-laypage-em")
+                          .next().html()
+                      }
+                    })
+
+                  }
+                }
+              });
+              layer.close(index);
+            });
+          }
+        });
+
+        $("#sc").click(function () {
+          var checkStatus = table.checkStatus('imageTables');
+          data = checkStatus.data;
+          if (data.length == 0) {
+            layer.msg("请选择要删除的选项！");
+          } else {
+            layer.confirm('确定批量删除文件吗?', function (index) {
+              arr = new Array();;
+              for (var i = 0; i < data.length; i++) {
+                arr.push(data[i].id);
+              }
+              arr.join(",");
+              console.log(arr);
+              $.ajax({
+                url: '/image/batchDelete ',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                  'ids': arr.toString()
+                }, //向服务端发送删除的id
+                success: function (suc) {
+                  layer.msg("删除成功", {
+                    icon: 1
+                  });
+                  table.reload('imageTables', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                      'id': 1
+                    },
+                    page: {
+                      //  curr: 1 //重新从第 1 页开始
+                      curr: $(".layui-laypage-em").next()
+                        .html()
+                    }
+                  })
+
+
+                }
+              });
+              layer.close(index);
+            });
+          }
+        });
+
+
+        $("#queding11").click(function () {
+          var search2 = $("#search").val();
+          table.reload('imageTables', {
+            url: basePath + '/event/eventStatisticList',
+            where: { //设定异步数据接口的额外参数，任意设
+              // limitName: '10',
+              // pageName: '1',
+              // createDate: createDate,
+              likeName: search2,
+              time: time
+            }
+          });
+          //    window.location.reload();
+        });
+      });
+    }
+
+
+
+
+
+    // 新词发现
+    function shijian() {
+      layui.use(['table', 'layer', 'laydate', 'jquery'], function () {
+        var $ = layui.jquery,
+          table = layui.table,
+          layer = layui.layer,
+          laydate = layui.laydate;
+        var createDate = $("#time2").val();
+        var search = $("#succ").val();
+        //自定义格式
+        laydate.render({
+          elem: '#date2',
+          format: 'yyyy/MM/dd',
+          range: true,
+          theme: '#ff7f4f',
+          done: function (value, date, endDate) {
+            $("#time2").val(value);
+            table.reload('table', {
+              // url: basePath + '/newWord/nwList',
+              where: { //设定异步数据接口的额外参数，任意设
+                limitName: '10',
+                pageName: '1',
+                // userId:userId,
+                // createDate: value,
+                // likeName: search
+              }
+            });
+          }
+        });
+        var tableIns = table.render({
+          elem: '#table',
+          page: true,
+          // limit: 10,
+          // limits: [5, 10, 15],
+          sort: true,
+          where: {
+            // userId:userId,
+            // createDate: createDate,
+            // status: status,
+            // likeName: documentName,
+            // time: time
+          }, //如果无需传递额外参数，可不加该参数
+          // url: basePath + '/newWord/nwList',
+          method: 'GET',
+          request: {
+            limitName: 'pageSize',
+            pageName: 'pageNum',
+            // likeName: search
+          }, //请求参数
+          parseData: function (res) {
+            // console.log(res)
+            return {
+              "code": 0,
+              "msg": "",
+              "count": res.data.totalCount,
+              "data": res.data.pageList
+            }
+          },
+          cols: [
+            [
+              // { type: 'checkbox', fixed: 'left' },
+              {
+                type: 'numbers',
+                // field: 'id',
+                title: '序号',
+                align: 'center',
+
+                // sort: true,
+                width: 80
+              },
+              {
+                field: 'fromDocName',
+                title: '文档名称',
+                align: 'center',
+                width: 180
+              },
+              {
+                field: 'name',
+                title: '词汇名称',
+                // templet: function (d) {
+                //     return '<span>' + d.from + '</span>'
+                // },
+
+                align: 'center',
+                width: 220
+              },
+              {
+                field: 'createDate',
+                title: '生成时间',
+                align: 'center',
+                width: 180
+              },
+              {
+                field: 'infoe',
+                title: '信息熵',
+                width: 280,
+                align: 'center',
+                // toolbar: '#tables',
+
+              },
+              {
+                field: 'feq',
+                title: '词频',
+                // width:,
+                align: 'center',
+                // toolbar: '#tables',
+
+              },
+              // {
+              //     field: 'src',
+              //     title: '操作',
+
+              //     align: 'center',
+              //     // toolbar: '#tables',
+
+              // },
+            ]
+          ],
+          done: function (res, curr, count) {
+            $('th').css({
+              'background-color': '#ed6a1a',
+              'color': '#fff',
+              'font-weight': 'bold'
+            })
+          }
+        });
+
+        $("#queding12").click(function () {
+          var search2 = $("#succ").val();
+          table.reload('table', {
+            url: basePath + '/extract/relations',
+            where: { //设定异步数据接口的额外参数，任意设
+              // limitName: '10',
+              // pageName: '1',
+              // createDate: createDate,
+              likeName: search2
+            }
+          });
+          //    window.location.reload();
+        });
+        table.on('tool(fanwen)', function (obj) { //注：tool是工具条事件名，demo是table原始容器的属性 lay-filter="对应的值"
+          var data = obj.data; //获得当前行数据
+          // console.log(data)
+          var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+          var tr = obj.tr; //获得当前行 tr 的DOM对象
+          if (layEvent === 'detail') { //查看
+            //do somehing
+            // layer.alert('序号:' + data.userId + '<br>id:' + data.jobNo + '<br>编号：' + data.userName + '<br>密码:' + data.pwd + '<br>权限:' + data.class);
+            // window.location.href =  '/contract/start?id=' + data.id;
+            window.open(basePath + '/contract/start?id=' + encodeURI(data.id));
+
+          } else if (layEvent === 'del') { //删除
+            layer.confirm('确定删除文件名为：' + data.contractName + "的文件吗?", function (index) {
+
+              // console.log(data.id);
+              //向服务端发送删除指令
+              $.ajax({
+                url: '/contract/delete-contract ',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                  'id': data.id
+                }, //向服务端发送删除的id
+                success: function (suc) {
+                  if (suc == 200) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    // console.log(index);
+                    layer.msg("删除成功", {
+                      icon: 1
+                    });
+                  } else {
+                    layer.msg("删除成功", {
+                      icon: 1
+                    });
+                    table.reload('table', {
+                      where: { //设定异步数据接口的额外参数，任意设
+                        'id': data.id
+                      },
+                      page: {
+                        //  curr: 1 //重新从第 1 页开始
+                        curr: $(".layui-laypage-em")
+                          .next().html()
+
+                      }
+                    })
+
+                  }
+                }
+              });
+              layer.close(index);
+            });
+          }
+        });
+
+        $("#piliang").click(function () {
+          var checkStatus = table.checkStatus('table');
+          data = checkStatus.data;
+          if (data.length == 0) {
+            layer.msg("请选择要删除的选项！");
+          } else {
+            layer.confirm('确定批量删除文件吗?', function (index) {
+              arr = new Array();;
+              for (var i = 0; i < data.length; i++) {
+                arr.push(data[i].id);
+              }
+              arr.join(",");
+              console.log(arr);
+              $.ajax({
+                url: '/contract/batchDelete ',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                  'ids': arr.toString()
+                }, //向服务端发送删除的id
+                success: function (suc) {
+                  layer.msg("删除成功", {
+                    icon: 1
+                  });
+                  table.reload('table', {
+                    where: { //设定异步数据接口的额外参数，任意设
+                      'id': 1
+                    },
+                    page: {
+                      //  curr: 1 //重新从第 1 页开始
+                      curr: $(".layui-laypage-em").next()
+                        .html()
+                    }
+                  })
+
+
+                }
+              });
+              layer.close(index);
+            });
+          }
+        });
+
+
+
+      });
+
+    }
+
+
+
+
+    //   时间轴
+    function createTime(v) {
+      var date = new Date(v);
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? '0' + m : m;
+      var d = date.getDate();
+      d = d < 10 ? ("0" + d) : d;
+      var h = date.getHours();
+      h = h < 10 ? ("0" + h) : h;
+      var M = date.getMinutes();
+      M = M < 10 ? ("0" + M) : M;
+      var str = y + "-" + m + "-" + d + " " + h + ":" + M;
+      return str;
+
+    }
+    // 相似比对
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+.lift {
+    width: 37%;
+    height: 700px;
+    border: 1px solid black;
+    margin-top: 20px;
+    float: left;
+}
+.rigtt {
+    width: 60%;
+    height: 180px;
+    border: 1px solid black;
+    margin-top: 20px;
+    float: right;
+}
+.rigtt  input {
+    width: 80px;
+    display: inline-block;
+    
+}
+.rigtt .jianju {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.rigtt .jianju button {
+    width: 100px;
+    border: 0;
+    border-radius: 6px;
+    height: 28px;
+    /* background: aliceblue; */
+
+}
+.rigbuttom {
+    width: 60%;
+    height: 500px;
+    border: 1px solid black;
+    margin-top: 20px;
+    float: right;
+}
+.but {
+    float: right;
+}
+.but button {
+    width: 120px;
+    height: 25px;
+    color: aliceblue;
+    background: #0daaed;
+    border: 0;
+    border-radius: 5px;
+    margin: 10px;
+}

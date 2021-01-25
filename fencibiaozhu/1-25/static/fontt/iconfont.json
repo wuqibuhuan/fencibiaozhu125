@@ -1,0 +1,58 @@
+{
+  "id": "2329506",
+  "name": "标注",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6752047",
+      "name": "属性",
+      "font_class": "shuxing",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "9385543",
+      "name": "实体经营",
+      "font_class": "shitijingying",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "10219562",
+      "name": "类别",
+      "font_class": "leibie",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "10983041",
+      "name": "标注",
+      "font_class": "biaozhu",
+      "unicode": "e71b",
+      "unicode_decimal": 59163
+    },
+    {
+      "icon_id": "12221044",
+      "name": "关系",
+      "font_class": "jiqixuexi-",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "15203367",
+      "name": "新词发现",
+      "font_class": "xincifaxian",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "17915840",
+      "name": "下载",
+      "font_class": "xiazai",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+.titledf {
+    height: 60px;
+    width: 100%;
+}
+.titledf  span {
+    font-size: 20px;
+    font-weight: 700;
+}
+.clearfix {
+    clear: both;
+}
+.con {
+    width: 100%;
+    height: 350px;
+}
+.con-1 {
+    width: 31%;
+    float: left;
+    height: 100%;
+    /* background-color: blue; */
+    /* margin-right: 0.1%; */
+    margin-left: 1%;
+    margin-top: 15px;
+}
+.con-2 {
+    width: 25%;
+    float: left;
+    height: 100%;
+    /* background-color: blue; */
+    /* margin-right: 1%; */
+    margin-left: 1%;
+    margin-top: 15px;
+}
+.con-3 {
+    width: 17%;
+    float: left;
+    height: 100%;
+    margin-left: 1%;
+     border: 1px solid black;
+     background-color: #1A1835;
+     margin-top: 15px;
+}
+.table-fix {
+    width: 94.8%;
+    height: 400px;
+    margin: 20px;
+    border: 1px solid black;
+}
